@@ -1,0 +1,13 @@
+---
+# tasks file for podman
+- name: Install podman
+  package:
+    name: "podman"
+    state: present
+
+- name: Login to default registry and create ${XDG_RUNTIME_DIR}/containers/auth.json
+  containers.podman.podman_login:
+    username: "{{ user_registry }}"
+    password: "{{ password_registry }}"
+    registry: "{{ registry }}"
+  when: registry is defined
